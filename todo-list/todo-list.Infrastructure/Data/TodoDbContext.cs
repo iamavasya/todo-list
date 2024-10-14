@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using todo_list.Infrastructure.Models;
 
-namespace todo_list.Infrastructure.DataAccess
+namespace todo_list.Infrastructure.Data
 {
     public class TodoDbContext : DbContext
     {
