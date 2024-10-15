@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using todo_list.BusinessLogic.Interfaces;
-using todo_list.Infrastructure.Models;
+using todo_list.BusinessLogic.Dtos;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,14 +19,14 @@ namespace todo_list.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> Get()
+        public async Task<ActionResult<IEnumerable<CategoryDto>>> Get()
         {
             var categories = await _categoryService.GetAllCategoriesAsync();
             return Ok(categories);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> Get(int id)
+        public async Task<ActionResult<CategoryDto>> Get(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
             if (category == null)
@@ -35,17 +36,16 @@ namespace todo_list.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Category category)
+        public async Task<ActionResult> Post([FromBody] CategoryDto category)
         {
-            await _categoryService.AddCategoryAsync(category);
-            return CreatedAtAction(nameof(Get), new { id = category.Id }, category);
+            var categoryEntity = await _categoryService.AddCategoryAsync(category);
+            return CreatedAtAction(nameof(Get), new { id = categoryEntity.Id }, categoryEntity);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] Category category)
+        public async Task<ActionResult> Put(int id, [FromBody] CategoryDto category)
         {
-            category.Id = id;
-            await _categoryService.UpdateCategoryAsync(category);
+            await _categoryService.UpdateCategoryAsync(category, id);
             return NoContent();
         }
 

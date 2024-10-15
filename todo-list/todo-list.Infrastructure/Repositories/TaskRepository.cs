@@ -21,12 +21,12 @@ namespace todo_list.Infrastructure.Repositories
 
         public async Task<IEnumerable<TaskDo>> GetAllTasksAsync()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Tasks.Include(t => t.Category).ToListAsync();
         }
 
         public async Task<TaskDo> GetTaskByIdAsync(int id)
         {
-            return await _context.Tasks.FindAsync(id);
+            return await _context.Tasks.Include(t => t.Category).FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task AddTaskAsync(TaskDo task)

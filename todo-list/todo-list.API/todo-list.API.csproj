@@ -22,14 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\todo-list.BusinessLogic\todo-list.BusinessLogic.csproj" />
     <ProjectReference Include="..\todo-list.client\todo-list.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\todo-list.Infrastructure\todo-list.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
